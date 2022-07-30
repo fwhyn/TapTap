@@ -3,7 +3,6 @@ package com.fwhyn.taptap.home.ui
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -73,7 +72,7 @@ class HomeActivity : AppCompatActivity() {
     private fun initView() {
         // text view
         mScoreText = findViewById(R.id.score)
-        mArcadeScoreText = findViewById(R.id.beast_score)
+        mArcadeScoreText = findViewById(R.id.arcade_score)
 
         // button
         val button1 = findViewById<ImageButton>(R.id.tap1)
