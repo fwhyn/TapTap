@@ -3,4 +3,5 @@
     <string name="tap_button1">tap button 1</string>
     <string name="tap_button2">tap button 2</string>
     <string name="zero">0</string>
+    <string name="highest_score">Highest Score:</string>
 </resources>
