@@ -5,6 +5,6 @@ import androidx.lifecycle.ViewModel
 
 class MyViewModel : ViewModel() {
     val score: MutableLiveData<Int> = MutableLiveData(0)
-    val highestScore: MutableLiveData<Int> = MutableLiveData(0)
-    var highestScoreUpdated: Boolean = false
+    val arcadeScore: MutableLiveData<Int> = MutableLiveData(0)
+    var arcadeScoreUpdated: Boolean = false
 }

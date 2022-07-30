@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">TapTap</string>
-    <string name="tap_button1">tap button 1</string>
-    <string name="tap_button2">tap button 2</string>
+    <string name="tap1">tap 1</string>
+    <string name="tap2">tap 2</string>
     <string name="zero">0</string>
-    <string name="highest_score">Highest Score:</string>
+    <string name="tap_arcade_label">Arcade</string>
     <string name="preference_data_key">key_data</string>
     <string name="highest_score_key">highest_score_key</string>
+    <string name="tap_beast">Beast</string>
+    <string name="tap_rocky">Rocky</string>
 </resources>

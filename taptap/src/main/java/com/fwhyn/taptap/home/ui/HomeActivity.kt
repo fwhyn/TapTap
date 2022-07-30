@@ -2,12 +2,13 @@ package com.fwhyn.taptap.home.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.fwhyn.taptap.R
-import com.fwhyn.taptap.home.data.Common
+import com.fwhyn.taptap.common.Common
 import com.fwhyn.taptap.home.data.MyData
 import com.fwhyn.taptap.home.data.MyViewModel
 
@@ -15,7 +16,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var viewModel: MyViewModel
 
     private lateinit var mScoreText: TextView
-    private lateinit var mHighestScoreText: TextView
+    private lateinit var mArcadeScoreText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +29,10 @@ class HomeActivity : AppCompatActivity() {
         super.onWindowFocusChanged(hasFocus)
 
         with(viewModel) {
-            if (highestScoreUpdated) {
-                Common.saveHighestScore(applicationContext, MyData.highestScore)
+            if (arcadeScoreUpdated) {
+                Common.saveHighestScore(applicationContext, MyData.arcadeScore)
                 Log.d(Common.TAG, "saveHighestScore")
-                highestScoreUpdated = false
+                arcadeScoreUpdated = false
             }
         }
     }
@@ -42,42 +43,46 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initData(savedInstanceState: Bundle?) {
+        // view model
         viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
         with(viewModel) {
             score.observe(this@HomeActivity) { value ->
                 mScoreText.text = value.toString()
-                if (value > highestScore.value!!) {
-                    highestScore.value = value
-                    highestScoreUpdated = true
+                if (value > arcadeScore.value!!) {
+                    arcadeScore.value = value
+                    arcadeScoreUpdated = true
                 }
             }
-            highestScore.observe(this@HomeActivity) { value ->
-                mHighestScoreText.text = value.toString()
+            arcadeScore.observe(this@HomeActivity) { value ->
+                mArcadeScoreText.text = value.toString()
             }
         }
 
+        // data
         if (savedInstanceState == null) {
             with(MyData) {
-                highestScore = Common.getSavedHighestScore(applicationContext)
+                arcadeScore = Common.getSavedHighestScore(applicationContext)
                 Log.d(Common.TAG, "getSavedHighestScore")
-                viewModel.highestScore.value = highestScore
+                viewModel.arcadeScore.value = arcadeScore
             }
         }
 
     }
 
     private fun initView() {
+        // text view
         mScoreText = findViewById(R.id.score)
-        mHighestScoreText = findViewById(R.id.highest_score)
+        mArcadeScoreText = findViewById(R.id.beast_score)
 
-        val button1 = findViewById<ImageView>(R.id.tap_button1)
+        // button
+        val button1 = findViewById<ImageButton>(R.id.tap1)
         button1.setOnClickListener {
             MyData.score++
             viewModel.score.value = MyData.score
         }
 
-        val button2 = findViewById<ImageView>(R.id.tap_button2)
+        val button2 = findViewById<ImageButton>(R.id.tap2)
         button2.setOnClickListener {
             MyData.score++
             viewModel.score.value = MyData.score

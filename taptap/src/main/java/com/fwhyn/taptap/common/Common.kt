@@ -1,4 +1,4 @@
-package com.fwhyn.taptap.home.data
+package com.fwhyn.taptap.common
 
 import android.content.Context
 import android.content.SharedPreferences
