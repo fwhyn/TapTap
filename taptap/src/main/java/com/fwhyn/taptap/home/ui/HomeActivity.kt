@@ -1,7 +1,6 @@
 package com.fwhyn.taptap.home.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -43,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initData(savedInstanceState: Bundle?) {
         // view model
-        viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MyViewModel::class.java]
 
         with(viewModel) {
             score.observe(this@HomeActivity) { value ->
