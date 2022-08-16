@@ -1,21 +1,28 @@
 package com.fwhyn.taptap.home.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.fwhyn.taptap.R
-import com.fwhyn.taptap.home.data.Common
+import com.fwhyn.taptap.common.SharedPrefs
 import com.fwhyn.taptap.home.data.MyData
 import com.fwhyn.taptap.home.data.MyViewModel
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var viewModel: MyViewModel
 
-    private lateinit var mScoreText: TextView
-    private lateinit var mHighestScoreText: TextView
+    private lateinit var arcadeScoreText: TextView
+    private lateinit var beastScoreText: TextView
+    private lateinit var rockyScoreText: TextView
+
+    private lateinit var arcadeHighestScoreText: TextView
+    private lateinit var beastHighestScoreText: TextView
+    private lateinit var rockyHighestScoreText: TextView
+
+    private lateinit var beastTimerText: TextView
+    private lateinit var rockyTimerText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +34,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
 
-        with(viewModel) {
-            if (highestScoreUpdated) {
-                Common.saveHighestScore(applicationContext, MyData.highestScore)
-                Log.d(Common.TAG, "saveHighestScore")
-                highestScoreUpdated = false
-            }
-        }
+        saveData()
     }
 
     private fun init(savedInstanceState: Bundle?) {
@@ -42,45 +43,118 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initData(savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+        // view model
+        viewModel = ViewModelProvider(this)[MyViewModel::class.java]
 
         with(viewModel) {
-            score.observe(this@HomeActivity) { value ->
-                mScoreText.text = value.toString()
-                if (value > highestScore.value!!) {
-                    highestScore.value = value
-                    highestScoreUpdated = true
-                }
+            // arcade
+            arcadeScore.observe(this@HomeActivity) { value ->
+                arcadeScoreText.text = value.toString()
             }
-            highestScore.observe(this@HomeActivity) { value ->
-                mHighestScoreText.text = value.toString()
+            arcadeHighestScore.observe(this@HomeActivity) { value ->
+                arcadeHighestScoreText.text = value.toString()
+            }
+
+            // beast
+            beastScore.observe(this@HomeActivity) { value ->
+                beastScoreText.text = value.toString()
+            }
+            beastHighestScore.observe(this@HomeActivity) { value ->
+                beastHighestScoreText.text = value.toString()
+            }
+            beastTimeCount.observe(this@HomeActivity) { value ->
+                beastTimerText.text = value.toString()
+            }
+
+            // rocky
+            rockyScore.observe(this@HomeActivity) { value ->
+                rockyScoreText.text = value.toString()
+            }
+            rockyHighestScore.observe(this@HomeActivity) { value ->
+                rockyHighestScoreText.text = value.toString()
+            }
+            rockyTimeCount.observe(this@HomeActivity) { value ->
+                rockyTimerText.text = value.toString()
             }
         }
 
+        // data
         if (savedInstanceState == null) {
-            with(MyData) {
-                highestScore = Common.getSavedHighestScore(applicationContext)
-                Log.d(Common.TAG, "getSavedHighestScore")
-                viewModel.highestScore.value = highestScore
-            }
+            initData()
+            getData()
         }
-
     }
 
     private fun initView() {
-        mScoreText = findViewById(R.id.score)
-        mHighestScoreText = findViewById(R.id.highest_score)
+        // text view
+        arcadeScoreText = findViewById(R.id.arcade_score)
+        beastScoreText = findViewById(R.id.beast_score)
+        rockyScoreText = findViewById(R.id.rocky_score)
 
-        val button1 = findViewById<ImageView>(R.id.tap_button1)
+        arcadeHighestScoreText = findViewById(R.id.arcade_highest_score)
+        beastHighestScoreText = findViewById(R.id.beast_highest_score)
+        rockyHighestScoreText = findViewById(R.id.rocky_highest_score)
+
+        beastTimerText = findViewById(R.id.beast_timer)
+        rockyTimerText = findViewById(R.id.rocky_timer)
+
+        // button
+        val button1 = findViewById<ImageButton>(R.id.tap1)
         button1.setOnClickListener {
-            MyData.score++
-            viewModel.score.value = MyData.score
+            scoreIt()
         }
 
-        val button2 = findViewById<ImageView>(R.id.tap_button2)
+        val button2 = findViewById<ImageButton>(R.id.tap2)
         button2.setOnClickListener {
-            MyData.score++
-            viewModel.score.value = MyData.score
+            scoreIt()
+        }
+    }
+
+    private fun initData() {
+        SharedPrefs.getSharedPrefs(applicationContext)
+    }
+
+    private fun getData() {
+        with(MyData) {
+            arcadeHighestScore = SharedPrefs.arcadeHighestScore
+            beastHighestScore = SharedPrefs.beastHighestScore
+            rockyHighestScore = SharedPrefs.rockyHighestScore
+
+            viewModel.arcadeHighestScore.value = arcadeHighestScore
+            viewModel.beastHighestScore.value = beastHighestScore
+            viewModel.rockyHighestScore.value = rockyHighestScore
+        }
+    }
+
+    private fun saveData() {
+        with(viewModel) {
+            if (arcadeScoreUpdate) {
+                SharedPrefs.arcadeHighestScore = MyData.arcadeHighestScore
+                arcadeScoreUpdate = false
+            }
+
+            if (beastScoreUpdate) {
+                SharedPrefs.beastHighestScore = MyData.beastHighestScore
+                beastScoreUpdate = false
+            }
+
+            if (rockyScoreUpdate) {
+                SharedPrefs.rockyHighestScore = MyData.rockyHighestScore
+                rockyScoreUpdate = false
+            }
+        }
+    }
+
+    private fun scoreIt() {
+        with (viewModel) {
+            // arcade score
+            setArcadeScore()
+
+            // beast score
+            setBeastScore()
+
+            // rocky score
+            setRockyScore()
         }
     }
 }
