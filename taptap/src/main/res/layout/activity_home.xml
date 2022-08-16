@@ -6,16 +6,61 @@
 
 
     <TextView
-        android:id="@+id/score"
-        android:layout_width="match_parent"
+        android:id="@+id/beast_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/zero"
+        android:textAlignment="center"
+        android:textSize="@dimen/std_text_size"
+        app:layout_constraintEnd_toEndOf="@+id/beast_score"
+        app:layout_constraintTop_toBottomOf="@+id/beast_score" />
+
+    <TextView
+        android:id="@+id/rocky_score"
+        android:layout_width="@dimen/short_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/zero"
+        android:textAlignment="center"
+        android:textSize="@dimen/med_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arcade_layout" />
+
+    <TextView
+        android:id="@+id/rocky_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/zero"
+        android:textAlignment="center"
+        android:textSize="@dimen/std_text_size"
+        app:layout_constraintStart_toStartOf="@+id/rocky_score"
+        app:layout_constraintTop_toBottomOf="@+id/rocky_score" />
+
+    <TextView
+        android:id="@+id/beast_score"
+        android:layout_width="@dimen/short_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:text="@string/zero"
+        android:textAlignment="center"
+        android:textSize="@dimen/med_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arcade_layout" />
+
+    <TextView
+        android:id="@+id/arcade_score"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
         android:text="@string/zero"
         android:textAlignment="center"
         android:textSize="@dimen/large_text_size"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/beast_score"
+        app:layout_constraintStart_toEndOf="@+id/rocky_score"
         app:layout_constraintTop_toBottomOf="@+id/arcade_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +106,7 @@
         app:layout_constraintTop_toTopOf="@+id/arcade_layout">
 
         <TextView
-            android:id="@+id/rocky_score"
+            android:id="@+id/rocky_highest_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/zero"
@@ -88,7 +133,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/arcade_score"
+            android:id="@+id/arcade_highest_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/zero"
@@ -114,7 +159,7 @@
         app:layout_constraintTop_toTopOf="@+id/arcade_layout">
 
         <TextView
-            android:id="@+id/beast_score"
+            android:id="@+id/beast_highest_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/zero"

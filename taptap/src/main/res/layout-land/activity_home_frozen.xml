@@ -6,7 +6,7 @@
 
 
     <TextView
-        android:id="@+id/score"
+        android:id="@+id/arcade_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="@+id/arcade_layout">
 
         <TextView
-            android:id="@+id/rocky_score"
+            android:id="@+id/rocky_highest_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/zero"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/arcade_score"
+            android:id="@+id/arcade_highest_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/zero"
@@ -114,7 +114,7 @@
         app:layout_constraintTop_toTopOf="@+id/arcade_layout">
 
         <TextView
-            android:id="@+id/beast_score"
+            android:id="@+id/beast_highest_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/zero"

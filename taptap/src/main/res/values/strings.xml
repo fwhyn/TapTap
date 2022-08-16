@@ -4,8 +4,6 @@
     <string name="tap2">tap 2</string>
     <string name="zero">0</string>
     <string name="tap_arcade_label">Arcade</string>
-    <string name="preference_data_key">key_data</string>
-    <string name="highest_score_key">highest_score_key</string>
     <string name="tap_beast">Beast</string>
     <string name="tap_rocky">Rocky</string>
 </resources>

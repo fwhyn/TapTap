@@ -1,14 +1,11 @@
 package com.fwhyn.taptap.home.data
 
 object MyData {
-    var score: Int = 0
-    var arcadeScore: Int = 0
-        get() {
-            return if (score > field) {
-                field = score
-                field
-            } else {
-                field
-            }
-        }
+    var arcadeScore: Long = 0
+    var beastScore: Int = 0
+    var rockyScore: Int = 0
+
+    var arcadeHighestScore: Long = 0
+    var beastHighestScore: Int = 0
+    var rockyHighestScore: Int = 0
 }
